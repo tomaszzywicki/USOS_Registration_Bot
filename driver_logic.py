@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 import time
 import datetime
 
@@ -11,19 +12,19 @@ class Driver_Logic:
     
     def login_to_usos(self, username, password):
         self.driver.get("https://usosweb.usos.pw.edu.pl/kontroler.php?_action=logowaniecas/index")
-        username_element = self.driver.find_element_by_id("username")
-        password_element = self.driver.find_element_by_id("password")
+        username_element = self.driver.find_element(By.ID, "username")
+        password_element = self.driver.find_element(By.ID, "password")
         username_element.send_keys(username)
         password_element.send_keys(password)
-        login_element = self.driver.find_element_by_class_name("form-button")
+        login_element = self.driver.find_element(By.CLASS_NAME, "form-button")
         login_element.send_keys(Keys.ENTER)
 
 
     def select_wf(self, link, group_nr):
         self.driver.get(link)
-        class_button_element = self.driver.find_element_by_css_selector(f'input.group-input[name="zajecia[474186][]"][value="{group_nr}"]') #TODO set to custom group
+        class_button_element = self.driver.find_element(By.CSS_SELECTOR, f'input.group-input[name="zajecia[474186][]"][value="{group_nr}"]') #TODO set to custom group
         class_button_element.click()
-        submit_button_element = self.driver.find_element_by_css_selector('input.submit.semitransparent[value="Rejestruj"][onclick="return isAnyGroupChecked();"]') #TODO check if that is ok
+        submit_button_element = self.driver.find_element(By.CSS_SELECTOR, 'input.submit.semitransparent[value="Rejestruj"][onclick="return isAnyGroupChecked();"]') #TODO check if that is ok
 
         clicks = 0
         while True:

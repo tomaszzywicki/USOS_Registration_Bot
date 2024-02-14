@@ -78,17 +78,3 @@ class Application(tk.CTkFrame):
         time.sleep(1)
         self.driver.select_wf(self.CLASS_LINK, self.GROUP_NR)
         self.driver.loop_driver()
-
-
-
-# def main():
-#     root = tk.CTk()
-#     root.geometry('800x600')
-#     root.title('USOS auto-register bot')
-
-#     app = Application(root)
-#     root.mainloop()
-
-
-# if __name__ == "__main__":
-#     main()
