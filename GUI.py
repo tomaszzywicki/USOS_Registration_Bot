@@ -15,7 +15,6 @@ class NumberEntry(tk.CTkEntry):
             return False
 
 class Application(tk.CTkFrame):
-
     def __init__(self, master):
         self.px = 10
         self.py = 12
@@ -26,9 +25,9 @@ class Application(tk.CTkFrame):
         self.create_widgets()
         if os.path.exists('login_password.txt'):
             with open('login_password.txt', 'r', encoding='utf-8') as file:
-                data = file.read().splitlines()
-                self.username_entry.insert(0, data[0])
-                self.password_entry.insert(0, data[1])
+                data = file.read().splitlines()     
+                self.username_entry.insert(0, data[0]) if data[0] else None
+                self.password_entry.insert(0, data[1]) if data[0] and data [1] else None
         tk.set_appearance_mode('dark')
         tk.set_default_color_theme('dark-blue')
 
@@ -45,10 +44,10 @@ class Application(tk.CTkFrame):
         self.checkbox = tk.CTkCheckBox(self, text='Remember me', variable=self.checkbox_var, font=self.font, )
         self.checkbox.pack(pady=self.py, padx=self.px)
 
-        self.link_entry = tk.CTkEntry(self, placeholder_text='Enter a link to your class here...', width=200, font=self.font)
+        self.link_entry = tk.CTkEntry(self, placeholder_text='Enter a link to your class here...', width=250, font=self.font)
         self.link_entry.pack(pady=self.py, padx=self.px)
 
-        self.group_nr_entry = NumberEntry(self, placeholder_text='Your target group number', width=200, font=self.font)
+        self.group_nr_entry = NumberEntry(self, placeholder_text='Enter your target group number here...', width=250, font=self.font)
         self.group_nr_entry.pack(pady=self.py, padx=self.px)
 
         self.confirm_button = tk.CTkButton(self, text='Confirm', command=self.confirm_action, font=self.font)
