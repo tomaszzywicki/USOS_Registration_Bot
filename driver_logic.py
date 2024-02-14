@@ -36,9 +36,4 @@ class Driver_Logic:
                     time.sleep(1)
                 break
             time.sleep(0.01)
-    
-
-    def loop_driver(self):
-        while True:
-            pass
 
