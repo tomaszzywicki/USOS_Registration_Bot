@@ -20,16 +20,16 @@ class Driver_Logic:
         login_element.send_keys(Keys.ENTER)
 
 
-    def select_wf(self, link, group_nr):
+    def select_wf(self, link, group_nr, hour, minute):
         self.driver.get(link)
-        class_button_element = self.driver.find_element(By.CSS_SELECTOR, f'input.group-input[name="zajecia[474186][]"][value="{group_nr}"]') #TODO set to custom group
+        class_button_element = self.driver.find_element(By.XPATH, f'//input[@class="group-input" and @value="{group_nr}"]')
         class_button_element.click()
-        submit_button_element = self.driver.find_element(By.CSS_SELECTOR, 'input.submit.semitransparent[value="Rejestruj"][onclick="return isAnyGroupChecked();"]') #TODO check if that is ok
+        submit_button_element = self.driver.find_element(By.CSS_SELECTOR, 'input.submit.semitransparent[value="Rejestruj"][onclick="return isAnyGroupChecked();"]')
 
         clicks = 0
         while True:
             current_time = datetime.datetime.now().time()
-            if current_time.hour == 8 and current_time.minute == 0:  #TODO set to custom time
+            if current_time.hour == hour and current_time.minute == minute:
                 while clicks <= 5:
                     submit_button_element.click()
                     clicks += 1
