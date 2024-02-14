@@ -1,5 +1,6 @@
 import customtkinter as tk
-import os
+import os, time
+import driver_logic as dc
 
 class NumberEntry(tk.CTkEntry):
     def __init__(self, master=None, **kwargs):
@@ -16,13 +17,16 @@ class NumberEntry(tk.CTkEntry):
 
 class Application(tk.CTkFrame):
     def __init__(self, master):
+        super(Application, self).__init__(master)
+        self.pack(pady=20, padx=60, fill='both', expand=True)
         self.px = 10
         self.py = 12
         self.font = ('Roboto', 12)
         self.checkbox_var = tk.BooleanVar(value=True)
-        super(Application, self).__init__(master)
-        self.pack(pady=20, padx=60, fill='both', expand=True)
+        self.LOGIN = self.PASSWORD = None
+        self.CLASS_LINK = self.GROUP_NR = None
         self.create_widgets()
+        self.driver = dc.Driver_Logic()
         if os.path.exists('login_password.txt'):
             with open('login_password.txt', 'r', encoding='utf-8') as file:
                 data = file.read().splitlines()     
@@ -63,18 +67,28 @@ class Application(tk.CTkFrame):
                 os.remove('login_password.txt')
         return
 
+
     def confirm_action(self):
         self.create_login_password_file()
+        self.LOGIN = self.username_entry.get()
+        self.PASSWORD = self.password_entry.get()
+        self.CLASS_LINK = self.link_entry.get()
+        self.GROUP_NR = self.group_nr_entry.get()
+        self.driver.login_to_usos(self.LOGIN, self.PASSWORD)
+        time.sleep(1)
+        self.driver.select_wf(self.CLASS_LINK, self.GROUP_NR)
+        self.driver.loop_driver()
 
 
-def main():
-    root = tk.CTk()
-    root.geometry('800x600')
-    root.title('USOS auto-register bot')
 
-    app = Application(root)
-    root.mainloop()
+# def main():
+#     root = tk.CTk()
+#     root.geometry('800x600')
+#     root.title('USOS auto-register bot')
+
+#     app = Application(root)
+#     root.mainloop()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
