@@ -97,4 +97,4 @@ class Application(tk.CTkFrame):
         print(self.HOUR, self.MINUTE)
         self.driver.login_to_usos(self.LOGIN, self.PASSWORD)
         time.sleep(1)
-        self.driver.select_wf(self.CLASS_LINK, self.GROUP_NR, self.HOUR, self.MINUTE)
+        self.driver.select_course(self.CLASS_LINK, self.GROUP_NR, self.HOUR, self.MINUTE)

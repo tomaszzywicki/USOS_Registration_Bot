@@ -20,20 +20,28 @@ class Driver_Logic:
         login_element.send_keys(Keys.ENTER)
 
 
-    def select_wf(self, link, group_nr, hour, minute):
+    def select_course(self, link, group_nr, hour, minute):
         self.driver.get(link)
         class_button_element = self.driver.find_element(By.XPATH, f'//input[@class="group-input" and @value="{group_nr}"]')
         class_button_element.click()
         submit_button_element = self.driver.find_element(By.CSS_SELECTOR, 'input.submit.semitransparent[value="Rejestruj"][onclick="return isAnyGroupChecked();"]')
 
-        clicks = 0
         while True:
             current_time = datetime.datetime.now().time()
             if current_time.hour == hour and current_time.minute == minute:
-                while clicks <= 5:
+                clicks = 0
+                while clicks <= 1:
                     submit_button_element.click()
                     clicks += 1
                     time.sleep(1)
+                time.sleep(5)
+
+                clicks = 0
+                while clicks <= 1: # if usos and computers clock are not synchronized it makes sure that button will be clicked
+                    submit_button_element.click()
+                    clicks += 1
+                    time.sleep(1)
+
                 break
             time.sleep(0.01)
 
