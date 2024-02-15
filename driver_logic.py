@@ -36,12 +36,7 @@ class Driver_Logic:
                     time.sleep(1)
                 time.sleep(5)
 
-                clicks = 0
-                while clicks <= 1: # if usos and computers clock are not synchronized it makes sure that button will be clicked
-                    submit_button_element.click()
-                    clicks += 1
-                    time.sleep(1)
-
+                submit_button_element.click()  # if USOS and device time synchronization is fucked up
                 break
             time.sleep(0.01)
 
