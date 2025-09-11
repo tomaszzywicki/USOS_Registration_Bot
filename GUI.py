@@ -31,14 +31,12 @@ class Application(tk.CTkFrame):
         self.CLASS_LINK = self.GROUP_NR = None
         self.HOUR = self.MINUTE = None
         self.create_widgets()
-        self.driver = dc.DriverLogic()
+        self.driver = None
         if os.path.exists("login_password.txt"):
             with open("login_password.txt", "r", encoding="utf-8") as file:
                 data = file.read().splitlines()
                 self.username_entry.insert(0, data[0]) if data[0] else None
                 self.password_entry.insert(0, data[1]) if data[0] and data[1] else None
-        tk.set_appearance_mode("dark")
-        tk.set_default_color_theme("dark-blue")
 
     def create_widgets(self):
         self.label = tk.CTkLabel(
@@ -174,6 +172,8 @@ class Application(tk.CTkFrame):
             )
 
         print("[INFO] Logowanie do USOS...")
+        if self.driver is None:
+            self.driver = dc.DriverLogic()
         self.driver.login_to_usos(self.LOGIN, self.PASSWORD, self.UNIVERSITY)
         time.sleep(1)
 
